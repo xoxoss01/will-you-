@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yes or No</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    text-align: center;
+  }
+  #yesButton {
+    transition: all 0.3s;
+  }
+  #noButton {
+    transition: all 0.3s;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <img src="https://i.pinimg.com/originals/2a/34/c9/2a34c95330d483685437ae5698b12fd9.gif" width="200">
+  <h1>Will you be my valentine?</h1>
+
+  <button id="yesButton" onclick="handleYesButtonClick()">Yes</button>
+  <button id="noButton" onclick="handleNoButtonClick()">No</button>
+</div>
+
+<script>
+var customizableText = {
+  'yes': ['Yes'],
+  'no': ['No', 'Sure?', 'Why not?', 'Please?' , 'Pretty please with fries on top?' , 'NGANO MN T^T' , 'WAHAHAA NO CHOICE YOUS MINE']
+};
+
+var currentTextIndex = {
+  'yes': 0,
+  'no': 0
+};
+
+var noButtonClickCount = 0;
+
+function changeText(choice) {
+  var button = document.getElementById(choice + 'Button');
+  var textOptions = customizableText[choice];
+  currentTextIndex[choice] = (currentTextIndex[choice] + 1) % textOptions.length;
+  button.innerText = textOptions[currentTextIndex[choice]];
+}
+
+function enlargeYesButton() {
+  var yesButton = document.getElementById('yesButton');
+  var computedStyle = window.getComputedStyle(yesButton);
+  var currentSize = parseFloat(computedStyle.fontSize);
+  yesButton.style.fontSize = (currentSize + 80) + 'px'; // increase font size by 80px
+}
+
+function handleYesButtonClick() {
+  var container = document.querySelector('.container');
+  container.innerHTML = '<img src="https://i.pinimg.com/originals/41/9d/20/419d205306b70170f9a05ab0c290c4bf.gif" width="200"><h1>No takebacksies!</h1>';
+}
+
+function handleNoButtonClick() {
+  noButtonClickCount++;
+  if (noButtonClickCount === 7) {
+    var noButton = document.getElementById('noButton');
+    noButton.style.display = 'none'; // hide the "No" button
+  }
+  enlargeYesButton();
+  changeText('no');
+}
+</script>
+
+</body>
+</html>
