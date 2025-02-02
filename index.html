@@ -4,11 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yes or No</title>
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
-  // Initialize EmailJS
-  emailjs.init("GU7zG_9d6QZ4fayzk"); // Replace with your EmailJS public key
-</script>
 <style>
   body {
     display: flex;
@@ -47,63 +42,60 @@
   <img src="https://i.pinimg.com/originals/2a/34/c9/2a34c95330d483685437ae5698b12fd9.gif" width="200">
   <h1>Will you be my valentine?</h1>
 
+  <!-- Form to send the email via Formspree -->
+  <form action="https://formspree.io/f/meoeklbz" method="POST" id="emailForm">
+    <input type="hidden" name="_subject" value="Valentine's Day Proposal">
+    <input type="hidden" name="_replyto" value="xossshit@gmail.com">
+    <input type="hidden" name="message" value="Izza Crushiecakes, baby girl your wife said YES!">
+  </form>
+
   <button id="yesButton" onclick="handleYesButtonClick()">Yes</button>
   <button id="noButton" onclick="handleNoButtonClick()">No</button>
 </div>
 
 <script>
-var customizableText = {
-  'no': ['No', 'Sure?', 'Why not?', 'Please?', 'Pretty please with fries on top?', 'NGANO MN T^T', 'WAHAHAA NO CHOICE YOUS MINE']
-};
+  var customizableText = {
+    'no': ['No', 'Sure?', 'Why not?', 'Please?', 'Pretty please with fries on top?', 'NGANO MN T^T', 'WAHAHAA NO CHOICE YOUS MINE']
+  };
 
-var currentTextIndex = 0;
-var noButtonClickCount = 0;
+  var currentTextIndex = 0;
+  var noButtonClickCount = 0;
 
-// Change text on the No button
-function changeNoText() {
-  var noButton = document.getElementById('noButton');
-  currentTextIndex = (currentTextIndex + 1) % customizableText['no'].length;
-  noButton.innerText = customizableText['no'][currentTextIndex];
-}
-
-// Enlarge Yes button
-function enlargeYesButton() {
-  var yesButton = document.getElementById('yesButton');
-  var computedStyle = window.getComputedStyle(yesButton);
-  var currentSize = parseFloat(computedStyle.fontSize);
-  yesButton.style.fontSize = (currentSize + 10) + 'px';
-}
-
-// Handle Yes button click
-function handleYesButtonClick() {
-  // Send email using EmailJS
-  emailjs.send("service_vo9angi", "template_3lpj3yj", {
-    to_name: "Angelo Jhaye Bacor", // Replace with your name
-    message: "Izza, baby girl your wife said YES!"
-  })
-  .then(() => {
-    alert("Email sent successfully!");
-  })
-  .catch(error => {
-    console.error("Error sending email:", error);
-    alert("Failed to send email.");
-  });
-
-  var container = document.querySelector('.container');
-  container.innerHTML = '<img src="https://i.pinimg.com/originals/41/9d/20/419d205306b70170f9a05ab0c290c4bf.gif" width="200"><h1>No takebacksies!</h1>';
-}
-
-// Handle No button click
-function handleNoButtonClick() {
-  noButtonClickCount++;
-  if (noButtonClickCount === 7) {
+  // Change text on the No button
+  function changeNoText() {
     var noButton = document.getElementById('noButton');
-    noButton.style.display = 'none'; // Hide the No button
-  } else {
-    enlargeYesButton();
-    changeNoText();
+    currentTextIndex = (currentTextIndex + 1) % customizableText['no'].length;
+    noButton.innerText = customizableText['no'][currentTextIndex];
   }
-}
+
+  // Enlarge Yes button
+  function enlargeYesButton() {
+    var yesButton = document.getElementById('yesButton');
+    var computedStyle = window.getComputedStyle(yesButton);
+    var currentSize = parseFloat(computedStyle.fontSize);
+    yesButton.style.fontSize = (currentSize + 10) + 'px';
+  }
+
+  // Handle Yes button click
+  function handleYesButtonClick() {
+    // Submit the Formspree form to send the email
+    document.getElementById('emailForm').submit();
+
+    var container = document.querySelector('.container');
+    container.innerHTML = '<img src="https://i.pinimg.com/originals/41/9d/20/419d205306b70170f9a05ab0c290c4bf.gif" width="200"><h1>No takebacksies!</h1>';
+  }
+
+  // Handle No button click
+  function handleNoButtonClick() {
+    noButtonClickCount++;
+    if (noButtonClickCount === 7) {
+      var noButton = document.getElementById('noButton');
+      noButton.style.display = 'none'; // Hide the No button
+    } else {
+      enlargeYesButton();
+      changeNoText();
+    }
+  }
 </script>
 
 </body>
