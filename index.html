@@ -3,99 +3,154 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yes or No</title>
+<title>Valentine</title>
+
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+emailjs.init("GU7zG_9d6QZ4fayzk");
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
 <style>
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-  }
-  .container {
-    text-align: center;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 80%;
-    width: 300px;
-  }
-  .container img {
-    max-width: 100%;
-    height: auto;
-  }
-  h1 {
-    margin-top: 20px;
-    margin-bottom: 30px;
-    font-size: 24px;
-  }
-  button {
-    margin-bottom: 10px;
-  }
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg,#ff9a9e,#fecfef);
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+/* Card container */
+.container {
+  background: white;
+  padding: 40px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  position: relative;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+h1 {
+  margin-top: 15px;
+  color: #ff4d6d;
+}
+
+button {
+  padding: 12px 28px;
+  font-size: 18px;
+  margin: 10px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* YES BUTTON */
+#yesButton {
+  background: #ff4d6d;
+  color: white;
+  box-shadow: 0 5px 15px rgba(255,77,109,0.4);
+}
+
+#yesButton:hover {
+  transform: scale(1.1);
+}
+
+/* NO BUTTON */
+#noButton {
+  background: #444;
+  color: white;
+  position: absolute;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+img {
+  border-radius: 15px;
+}
+
 </style>
 </head>
+
 <body>
 
 <div class="container">
   <img src="https://i.pinimg.com/originals/2a/34/c9/2a34c95330d483685437ae5698b12fd9.gif" width="200">
   <h1>Will you be my valentine?</h1>
 
-  <!-- Form to send the email via Formspree -->
   <form action="https://formspree.io/f/meoeklbz" method="POST" id="emailForm">
-    <input type="hidden" name="_subject" value="Valentine's Day Proposal">
+    <input type="hidden" name="_subject" value="Valentine Proposal">
     <input type="hidden" name="_replyto" value="xossshit@gmail.com">
-    <input type="hidden" name="message" value="Izza Crushiecakes, baby girl your wife said YES!">
+    <input type="hidden" name="message" value="She said YES ❤️">
   </form>
 
-  <button id="yesButton" onclick="handleYesButtonClick()">Yes</button>
-  <button id="noButton" onclick="handleNoButtonClick()">No</button>
+  <button id="yesButton" onclick="handleYes()">Yes 💖</button>
+  <button id="noButton">No 😢</button>
 </div>
 
 <script>
-  var customizableText = {
-    'no': ['No', 'Sure?', 'Why not?', 'Please?', 'Pretty please with fries on top?', 'NGANO MN T^T', 'WAHAHAA NO CHOICE YOUS MINE']
-  };
 
-  var currentTextIndex = 0;
-  var noButtonClickCount = 0;
+const noBtn = document.getElementById("noButton");
+const container = document.querySelector(".container");
 
-  // Change text on the No button
-  function changeNoText() {
-    var noButton = document.getElementById('noButton');
-    currentTextIndex = (currentTextIndex + 1) % customizableText['no'].length;
-    noButton.innerText = customizableText['no'][currentTextIndex];
-  }
+/* -------- Dodge Function -------- */
+function moveNoButton() {
 
-  // Enlarge Yes button
-  function enlargeYesButton() {
-    var yesButton = document.getElementById('yesButton');
-    var computedStyle = window.getComputedStyle(yesButton);
-    var currentSize = parseFloat(computedStyle.fontSize);
-    yesButton.style.fontSize = (currentSize + 10) + 'px';
-  }
+  const containerRect = container.getBoundingClientRect();
+  const btnRect = noBtn.getBoundingClientRect();
 
-  // Handle Yes button click
-  function handleYesButtonClick() {
-    // Submit the Formspree form to send the email
-    document.getElementById('emailForm').submit();
+  const maxX = containerRect.width - btnRect.width;
+  const maxY = containerRect.height - btnRect.height;
 
-    var container = document.querySelector('.container');
-    container.innerHTML = '<img src="https://i.pinimg.com/originals/41/9d/20/419d205306b70170f9a05ab0c290c4bf.gif" width="200"><h1>No takebacksies!</h1>';
-  }
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
 
-  // Handle No button click
-  function handleNoButtonClick() {
-    noButtonClickCount++;
-    if (noButtonClickCount === 7) {
-      var noButton = document.getElementById('noButton');
-      noButton.style.display = 'none'; // Hide the No button
-    } else {
-      enlargeYesButton();
-      changeNoText();
-    }
-  }
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+}
+
+/* Desktop Hover Dodge */
+noBtn.addEventListener("mouseover", moveNoButton);
+
+/* 📱 Mobile Touch Dodge */
+noBtn.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  moveNoButton();
+});
+
+/* YES Button Grow */
+function growYes() {
+  const yesBtn = document.getElementById("yesButton");
+  const size = window.getComputedStyle(yesBtn).fontSize;
+  yesBtn.style.fontSize = (parseFloat(size) + 6) + "px";
+}
+
+noBtn.addEventListener("mouseover", growYes);
+noBtn.addEventListener("touchstart", growYes);
+
+/* YES CLICK */
+function handleYes() {
+
+  document.getElementById("emailForm").submit();
+
+  container.innerHTML =
+  `
+  <img src="https://i.pinimg.com/originals/41/9d/20/419d205306b70170f9a05ab0c290c4bf.gif" width="200">
+  <h1>YAYYYYY 💕</h1>
+  <p>No takebacksies 😌</p>
+  `;
+}
+
 </script>
 
 </body>
