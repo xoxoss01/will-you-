@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine</title>
+<title>Valentine 💖</title>
 
 <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script>
@@ -14,24 +14,44 @@ emailjs.init("GU7zG_9d6QZ4fayzk");
 
 <style>
 
+/* ---------- BODY BACKGROUND ---------- */
 body {
   margin: 0;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg,#ff9a9e,#fecfef);
+
+  background-image: url("https://wallpapercave.com/wp/wp15023023.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   font-family: 'Poppins', sans-serif;
   overflow: hidden;
+  position: relative;
 }
 
-/* Card container */
+/* Romantic overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.35);
+  z-index: -1;
+}
+
+/* ---------- FLOATING CARD ---------- */
 .container {
-  background: white;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
   padding: 40px;
   border-radius: 25px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
   position: relative;
   animation: float 3s ease-in-out infinite;
 }
@@ -46,6 +66,11 @@ h1 {
   color: #ff4d6d;
 }
 
+img {
+  border-radius: 15px;
+}
+
+/* ---------- BUTTONS ---------- */
 button {
   padding: 12px 28px;
   font-size: 18px;
@@ -56,7 +81,7 @@ button {
   transition: all 0.25s ease;
 }
 
-/* YES BUTTON */
+/* YES */
 #yesButton {
   background: #ff4d6d;
   color: white;
@@ -67,16 +92,12 @@ button {
   transform: scale(1.1);
 }
 
-/* NO BUTTON */
+/* NO */
 #noButton {
   background: #444;
   color: white;
   position: absolute;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-img {
-  border-radius: 15px;
 }
 
 </style>
@@ -85,7 +106,7 @@ img {
 <body>
 
 <div class="container">
-  <img src="https://www.funimada.com/assets/images/cards/big/valentine-16.gif" width="200">
+  <img src="https://i.pinimg.com/originals/2a/34/c9/2a34c95330d483685437ae5698b12fd9.gif" width="200">
   <h1>Will you be my valentine?</h1>
 
   <form action="https://formspree.io/f/meoeklbz" method="POST" id="emailForm">
@@ -103,7 +124,7 @@ img {
 const noBtn = document.getElementById("noButton");
 const container = document.querySelector(".container");
 
-/* -------- Dodge Function -------- */
+/* ---------- MOVE NO BUTTON ---------- */
 function moveNoButton() {
 
   const containerRect = container.getBoundingClientRect();
@@ -119,16 +140,16 @@ function moveNoButton() {
   noBtn.style.top = randomY + "px";
 }
 
-/* Desktop Hover Dodge */
+/* Desktop hover */
 noBtn.addEventListener("mouseover", moveNoButton);
 
-/* 📱 Mobile Touch Dodge */
+/* Mobile touch dodge */
 noBtn.addEventListener("touchstart", (e) => {
   e.preventDefault();
   moveNoButton();
 });
 
-/* YES Button Grow */
+/* Grow YES button */
 function growYes() {
   const yesBtn = document.getElementById("yesButton");
   const size = window.getComputedStyle(yesBtn).fontSize;
@@ -143,11 +164,10 @@ function handleYes() {
 
   document.getElementById("emailForm").submit();
 
-  container.innerHTML =
-  `
-  <img src="https://media1.tenor.com/m/0cNM_9li440AAAAC/dudu-giving-flowers-bubu-flowers.gif" width="200">
-  <h1>It's a date then💕</h1>
-  <p>See you tommorow 💐💝🧎</p>
+  container.innerHTML = `
+    <img src="https://i.pinimg.com/originals/41/9d/20/419d205306b70170f9a05ab0c290c4bf.gif" width="200">
+    <h1>YAYYYYY 💕</h1>
+    <p>No takebacksies 😌</p>
   `;
 }
 
@@ -155,4 +175,3 @@ function handleYes() {
 
 </body>
 </html>
-
